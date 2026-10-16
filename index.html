@@ -47,7 +47,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         h1 {
@@ -62,6 +62,37 @@
             color: #7F8C8D;
         }
 
+        /* Level select buttons */
+        .level-select-grid {
+            display: grid;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .btn-level {
+            background: #F8FAFC;
+            border: 2px solid #CBD5E1;
+            color: var(--text-color);
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .btn-level:hover {
+            border-color: var(--primary);
+            background: #F0F7FF;
+        }
+
+        .btn-level span {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #64748B;
+        }
+
         /* Stats bar */
         .stats-bar {
             display: flex;
@@ -70,7 +101,7 @@
             background: #F8FAFC;
             padding: 12px 20px;
             border-radius: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             border: 2px solid #E2E8F0;
         }
 
@@ -88,9 +119,20 @@
         }
 
         .stat-value {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: var(--text-color);
+        }
+
+        .timer-warning {
+            color: var(--danger) !important;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         .streak-badge {
@@ -145,10 +187,6 @@
             box-shadow: 0 4px 0 #E08226;
         }
 
-        .btn-secondary:hover {
-            box-shadow: 0 6px 0 #E08226;
-        }
-
         /* Info box */
         .info-card {
             background-color: #EBF5FF;
@@ -158,11 +196,6 @@
             margin-bottom: 20px;
             font-size: 0.95rem;
             line-height: 1.5;
-        }
-
-        .info-card h3 {
-            margin-bottom: 6px;
-            color: var(--primary-dark);
         }
 
         .kofschip-highlight {
@@ -179,22 +212,21 @@
             text-align: center;
             background: #F8FAFC;
             border: 2px dashed #CBD5E1;
-            padding: 24px;
+            padding: 20px;
             border-radius: 20px;
             margin-bottom: 20px;
         }
 
         .verb-display {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: var(--primary-dark);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .sentence-prompt {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             line-height: 1.6;
-            margin-bottom: 8px;
         }
 
         .blank-space {
@@ -217,9 +249,9 @@
         .option-btn {
             background: white;
             border: 3px solid #E2E8F0;
-            padding: 18px;
+            padding: 16px;
             border-radius: 16px;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s;
@@ -236,7 +268,7 @@
             display: none;
             background: #F1F5F9;
             border-radius: 16px;
-            padding: 18px;
+            padding: 16px;
             margin-bottom: 20px;
             border: 2px solid #CBD5E1;
         }
@@ -249,21 +281,15 @@
         .explanation-title {
             font-weight: 800;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .step-list {
             list-style: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .step-list li {
             margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .badge {
@@ -282,7 +308,7 @@
             height: 10px;
             background: #E2E8F0;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             overflow: hidden;
         }
 
@@ -296,7 +322,7 @@
         /* Results Screen */
         .result-box {
             text-align: center;
-            padding: 20px 0;
+            padding: 10px 0;
         }
 
         .score-circle {
@@ -309,12 +335,12 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             color: var(--primary-dark);
         }
 
-        /* Helper rule visualizer */
+        /* Visualizer */
         .kofschip-letters {
             display: flex;
             justify-content: center;
@@ -323,15 +349,16 @@
         }
 
         .letter-box {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: white;
             border: 2px solid #CBD5E1;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 800;
+            font-size: 0.85rem;
             color: var(--text-color);
         }
 
@@ -348,27 +375,37 @@
 <div class="game-container">
     <header>
         <h1>⚓ 't Kofschip Meester</h1>
-        <p class="subtitle">Word een pro in d/t en verleden tijd!</p>
+        <p class="subtitle">5 Minuten Ronde - Haal de hoogste score!</p>
     </header>
 
     <!-- START SCREEN -->
     <div id="start-screen" class="screen active">
         <div class="info-card">
             <h3>Hoe werkt 't Kofschip? 🤔</h3>
-            <p>1. Pak het hele werkwoord (bijv. <b>werken</b>).</p>
-            <p>2. Haal <b>-en</b> eraf $\rightarrow$ je hanteert de stam (<b>werk</b>).</p>
-            <p>3. Kijk naar de <b>laatste letter</b> van de stam (de <b>k</b>).</p>
-            <p>4. Zit deze letter in <span class="kofschip-highlight">T K O F S C H I P</span>?</p>
-            <p style="margin-top: 6px;">
-                👉 <b>JA?</b> Dan krijgt het werkwoord een <b>-t</b> of <b>-te(n)</b>.<br>
-                👉 <b>NEE?</b> Dan krijgt het werkwoord een <b>-d</b> of <b>-de(n)</b>.
-            </p>
-            <p style="margin-top: 8px; font-size: 0.85rem; color: #64748B;">
-                ⚠️ <b>Let op:</b> Bij werkwoorden als <i>verven</i> en <i>reizen</i> verandert de <b>v</b> in een <b>f</b> en de <b>z</b> in een <b>s</b> in de stam. Je kijkt tóch naar de originele letter (<b>v</b> of <b>z</b>). Die zitten niet in 't kofschip!
+            <p>1. Haal <b>-en</b> van het hele werkwoord af $\rightarrow$ je hebt de stam.</p>
+            <p>2. Kijk naar de <b>laatste letter</b> van de stam.</p>
+            <p>3. Zit deze in <span class="kofschip-highlight">T K O F S C H I P</span>?</p>
+            <p style="margin-top: 4px;">
+                👉 <b>JA?</b> $\rightarrow$ Uitgang met <b>-t</b> / <b>-te(n)</b>.<br>
+                👉 <b>NEE?</b> $\rightarrow$ Uitgang met <b>-d</b> / <b>-de(n)</b>.
             </p>
         </div>
 
-        <button class="btn btn-secondary" onclick="startGame()">Start de Game! 🚀</button>
+        <h3 style="margin-bottom: 8px;">Kies een Niveau:</h3>
+        <div class="level-select-grid">
+            <button class="btn-level" onclick="selectLevel(1)">
+                🟢 Niveau 1: Basis
+                <span>Standaard werkwoorden (werken, spelen, fietst).</span>
+            </button>
+            <button class="btn-level" onclick="selectLevel(2)">
+                🟠 Niveau 2: Gemiddeld
+                <span>Inclusief klankveranderingen met v/f en z/s (reizen, verven).</span>
+            </button>
+            <button class="btn-level" onclick="selectLevel(3)">
+                🔴 Niveau 3: Moeilijk
+                <span>Gemengde tijden, dubbele medeklinkers & strikvragen.</span>
+            </button>
+        </div>
     </div>
 
     <!-- GAME SCREEN -->
@@ -378,6 +415,10 @@
         </div>
 
         <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">Tijd</span>
+                <span id="timer" class="stat-value">05:00</span>
+            </div>
             <div class="stat-item">
                 <span class="stat-label">Vraag</span>
                 <span id="question-count" class="stat-value">1/10</span>
@@ -424,20 +465,21 @@
     <!-- END SCREEN -->
     <div id="end-screen" class="screen">
         <div class="result-box">
-            <h2>Gefeliciteerd! 🎉</h2>
-            <p style="margin-bottom: 20px; color: #64748B;">Je hebt de 't Kofschip test afgerond.</p>
+            <h2 id="end-title">Ronde Afgelopen! 🎉</h2>
+            <p id="end-reason" style="margin-bottom: 15px; color: #64748B;"></p>
             
-            <div class="score-circle" id="final-score">0/10</div>
+            <div class="score-circle" id="final-score">0 pt</div>
             
             <p id="feedback-message" style="font-size: 1.1rem; font-weight: 700; margin-bottom: 20px;"></p>
 
-            <button class="btn" onclick="startGame()">Nog een keer spelen 🔄</button>
+            <button class="btn btn-secondary" id="next-level-btn" onclick="goToNextLevel()">Naar Volgend Niveau 🚀</button>
+            <button class="btn" onclick="showScreen('start-screen')">Niveau Kiezen 🔄</button>
         </div>
     </div>
 </div>
 
 <script>
-    // Audio synthesizer for sound effects without external files
+    // Audio synthesizer
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     function playSound(type) {
@@ -451,16 +493,16 @@
 
         if (type === 'correct') {
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
-            osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+            osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); 
+            osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); 
             gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
             osc.start();
             osc.stop(audioCtx.currentTime + 0.3);
         } else if (type === 'wrong') {
             osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
-            osc.frequency.setValueAtTime(164.81, audioCtx.currentTime + 0.15); // E3
+            osc.frequency.setValueAtTime(220, audioCtx.currentTime); 
+            osc.frequency.setValueAtTime(164.81, audioCtx.currentTime + 0.15); 
             gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
             osc.start();
@@ -468,153 +510,103 @@
         }
     }
 
-    // Question Database
-    const allQuestions = [
-        {
-            verb: "werken",
-            sentence: "Hij heeft gisteren erg hard ge{...}.",
-            options: ["werkt", "werkd"],
-            correct: "werkt",
-            stemRaw: "werk",
-            checkLetter: "k",
-            inKofschip: true,
-            type: "voltooid"
-        },
-        {
-            verb: "spelen",
-            sentence: "De kinderen hebben buiten ge{...}.",
-            options: ["speeld", "speelt"],
-            correct: "speeld",
-            stemRaw: "speel",
-            checkLetter: "l",
-            inKofschip: false,
-            type: "voltooid"
-        },
-        {
-            verb: "fietsen",
-            sentence: "Zij {...} vorige week naar school.",
-            options: ["fietste", "fietsde"],
-            correct: "fietste",
-            stemRaw: "fiets",
-            checkLetter: "s",
-            inKofschip: true,
-            type: "verleden"
-        },
-        {
-            verb: "reizen",
-            sentence: "Wij hebben door heel Europa ge{...}.",
-            options: ["reisd", "reist"],
-            correct: "reisd",
-            stemRaw: "reiz",
-            checkLetter: "z",
-            inKofschip: false,
-            note: "Let op! Stam van reizen is reiz- (z zit NIET in 't kofschip, ook al schrijf je ik reis).",
-            type: "voltooid"
-        },
-        {
-            verb: "verven",
-            sentence: "Mijn vader heeft de schutting ge{...}.",
-            options: ["verfd", "verft"],
-            correct: "verfd",
-            stemRaw: "verv",
-            checkLetter: "v",
-            inKofschip: false,
-            note: "Let op! Stam van verven is verv- (v zit NIET in 't kofschip, ook al schrijf je ik verf).",
-            type: "voltooid"
-        },
-        {
-            verb: "blaffen",
-            sentence: "De hond {...} heel hard naar de postbode.",
-            options: ["blafte", "blafde"],
-            correct: "blafte",
-            stemRaw: "blaf",
-            checkLetter: "f",
-            inKofschip: true,
-            type: "verleden"
-        },
-        {
-            verb: "maken",
-            sentence: "Heb jij je huiswerk al ge{...}?",
-            options: ["gemaakt", "gemaakd"],
-            correct: "gemaakt",
-            stemRaw: "maak",
-            checkLetter: "k",
-            inKofschip: true,
-            type: "voltooid"
-        },
-        {
-            verb: "wonen",
-            sentence: "Vroeger {...} ik in een klein dorpje.",
-            options: ["woonde", "woonte"],
-            correct: "woonde",
-            stemRaw: "woon",
-            checkLetter: "n",
-            inKofschip: false,
-            type: "verleden"
-        },
-        {
-            verb: "dansen",
-            sentence: "Zij hebben de hele nacht ge{...}.",
-            options: ["gedanst", "gedansd"],
-            correct: "gedanst",
-            stemRaw: "dans",
-            checkLetter: "s",
-            inKofschip: true,
-            type: "voltooid"
-        },
-        {
-            verb: "branden",
-            sentence: "Het kampvuur {...} gisteren erg goed.",
-            options: ["brandde", "brante"],
-            correct: "brandde",
-            stemRaw: "brand",
-            checkLetter: "d",
-            inKofschip: false,
-            type: "verleden"
-        },
-        {
-            verb: "hopen",
-            sentence: "Ik {...} dat we zouden winnen.",
-            options: ["hoopte", "hoopde"],
-            correct: "hoopte",
-            stemRaw: "hoop",
-            checkLetter: "p",
-            inKofschip: true,
-            type: "verleden"
-        },
-        {
-            verb: "lachen",
-            sentence: "We hebben erg om die grap ge{...}.",
-            options: ["gelachen", "gelacht"], // Valstrikje! lachen is sterk/onregelmatig
-            correct: "gelachen",
-            stemRaw: "lach",
-            checkLetter: "ch",
-            inKofschip: true,
-            note: "Opgelet! 'Lachen' is een sterk werkwoord (gelachen), maar in verleden tijd is het 'lachte'.",
-            special: true,
-            type: "voltooid"
-        }
-    ];
+    // Question Database categorized by Level
+    const questionsByLevel = {
+        1: [ // NIVEAU 1: Basis
+            { verb: "werken", sentence: "Hij heeft gisteren erg hard ge{...}.", options: ["werkt", "werkd"], correct: "werkt", stemRaw: "werk", checkLetter: "k", inKofschip: true },
+            { verb: "spelen", sentence: "De kinderen hebben buiten ge{...}.", options: ["speeld", "speelt"], correct: "speeld", stemRaw: "speel", checkLetter: "l", inKofschip: false },
+            { verb: "fietsen", sentence: "Zij {...} vorige week naar school.", options: ["fietste", "fietsde"], correct: "fietste", stemRaw: "fiets", checkLetter: "s", inKofschip: true },
+            { verb: "maken", sentence: "Heb jij je huiswerk al ge{...}?", options: ["gemaakt", "gemaakd"], correct: "gemaakt", stemRaw: "maak", checkLetter: "k", inKofschip: true },
+            { verb: "koken", sentence: "Moeder heeft heerlijk ge{...}.", options: ["gekookt", "gekookd"], correct: "gekookt", stemRaw: "kook", checkLetter: "k", inKofschip: true },
+            { verb: "wandelen", sentence: "Wij hebben in het bos ge{...}.", options: ["gewandeld", "gewandelt"], correct: "gewandeld", stemRaw: "wandel", checkLetter: "l", inKofschip: false },
+            { verb: "dansen", sentence: "Zij hebben de hele nacht ge{...}.", options: ["gedanst", "gedansd"], correct: "gedanst", stemRaw: "dans", checkLetter: "s", inKofschip: true },
+            { verb: "hopen", sentence: "Ik {...} dat we zouden winnen.", options: ["hoopte", "hoopde"], correct: "hoopte", stemRaw: "hoop", checkLetter: "p", inKofschip: true },
+            { verb: "wonen", sentence: "Vroeger {...} ik in een dorp.", options: ["woonde", "woonte"], correct: "woonde", stemRaw: "woon", checkLetter: "n", inKofschip: false },
+            { verb: "blaffen", sentence: "De hond {...} heel hard.", options: ["blafte", "blafde"], correct: "blafte", stemRaw: "blaf", checkLetter: "f", inKofschip: true }
+        ],
+        2: [ // NIVEAU 2: Met v/f en z/s regels
+            { verb: "reizen", sentence: "Wij hebben door heel Europa ge{...}.", options: ["reisd", "reist"], correct: "reisd", stemRaw: "reiz", checkLetter: "z", inKofschip: false, note: "Stam van reizen is reiz- (z zit NIET in 't kofschip)." },
+            { verb: "verven", sentence: "Mijn vader heeft de muur ge{...}.", options: ["verfd", "verft"], correct: "verfd", stemRaw: "verv", checkLetter: "v", inKofschip: false, note: "Stam van verven is verv- (v zit NIET in 't kofschip)." },
+            { verb: "verhuizen", sentence: "Zij zijn vorig jaar ge{...}.", options: ["verhuisd", "verhuist"], correct: "verhuisd", stemRaw: "verhuiz", checkLetter: "z", inKofschip: false, note: "Stam van verhuizen is verhuiz- (z zit NIET in 't kofschip)." },
+            { verb: "geloven", sentence: "Ik heb hem meteen ge{...}.", options: ["geloofd", "gelooft"], correct: "geloofd", stemRaw: "gelov", checkLetter: "v", inKofschip: false, note: "Stam van geloven is gelov- (v zit NIET in 't kofschip)." },
+            { verb: "surfen", sentence: "Hij {...} gisteren over de golf.", options: ["surfte", "surfde"], correct: "surfte", stemRaw: "surf", checkLetter: "f", inKofschip: true },
+            { verb: "durven", sentence: "Zij {...} het niet te vragen.", options: ["durfde", "durfte"], correct: "durfde", stemRaw: "durv", checkLetter: "v", inKofschip: false, note: "Stam is durv- (v zit NIET in 't kofschip)." },
+            { verb: "douchen", sentence: "Hij heeft vanmorgen lang ge{...}.", options: ["gedoucht", "gedouchd"], correct: "gedoucht", stemRaw: "douch", checkLetter: "ch", inKofschip: true },
+            { verb: "leven", sentence: "Opa heeft heel lang ge{...}.", options: ["geleefd", "geleeft"], correct: "geleefd", stemRaw: "lev", checkLetter: "v", inKofschip: false, note: "Stam is lev- (v zit NIET in 't kofschip)." },
+            { verb: "bazen", sentence: "Hij {...} altijd over iedereen.", options: ["baasde", "baaste"], correct: "baasde", stemRaw: "baz", checkLetter: "z", inKofschip: false },
+            { verb: "schrappen", sentence: "De meester heeft dat woord ge{...}.", options: ["geschrapt", "geschrapd"], correct: "geschrapt", stemRaw: "schrap", checkLetter: "p", inKofschip: true }
+        ],
+        3: [ // NIVEAU 3: Moeilijk / Gemengd & Dubbel D/T
+            { verb: "branden", sentence: "Het kampvuur {...} gisteren erg goed.", options: ["brandde", "brante"], correct: "brandde", stemRaw: "brand", checkLetter: "d", inKofschip: false },
+            { verb: "landen", sentence: "Het vliegtuig {...} precies op tijd.", options: ["landde", "lante"], correct: "landde", stemRaw: "land", checkLetter: "d", inKofschip: false },
+            { verb: "antwoorden", sentence: "Hij {...} heel snel op mijn vraag.", options: ["antwoordde", "antwoordte"], correct: "antwoordde", stemRaw: "antwoord", checkLetter: "d", inKofschip: false },
+            { verb: "tappen", sentence: "De ober {...} een lekker drankje.", options: ["tapte", "tapde"], correct: "tapte", stemRaw: "tap", checkLetter: "p", inKofschip: true },
+            { verb: "redden", sentence: "De brandweer {...} de kat uit de boom.", options: ["redde", "redte"], correct: "redde", stemRaw: "red", checkLetter: "d", inKofschip: false },
+            { verb: "praten", sentence: "Wij {...} gisteren urenlang.", options: ["praatten", "praatden"], correct: "praatten", stemRaw: "praat", checkLetter: "t", inKofschip: true },
+            { verb: "rusten", sentence: "De spelers {...} even uit.", options: ["rustten", "rustden"], correct: "rustten", stemRaw: "rust", checkLetter: "t", inKofschip: true },
+            { verb: "faxen", sentence: "Hij heeft de brief ge{...}.", options: ["gefaxt", "gefaxd"], correct: "gefaxt", stemRaw: "fax", checkLetter: "x", inKofschip: true, note: "De x zit ook in 't (x)-kofschip!" },
+            { verb: "beloven", sentence: "Zij heeft mij beterschap ge{...}.", options: ["beloofd", "belooft"], correct: "beloofd", stemRaw: "belov", checkLetter: "v", inKofschip: false },
+            { verb: "mixen", sentence: "De DJ heeft de nummers ge{...}.", options: ["gemixt", "gemixd"], correct: "gemixt", stemRaw: "mix", checkLetter: "x", inKofschip: true }
+        ]
+    };
 
+    let currentLevel = 1;
     let currentQuestions = [];
     let currentIndex = 0;
     let score = 0;
     let streak = 0;
     let answered = false;
+    let timerInterval = null;
+    let timeLeft = 300; // 5 minuten in seconden
 
     function shuffleArray(array) {
         return array.sort(() => Math.random() - 0.5);
     }
 
+    function selectLevel(level) {
+        currentLevel = level;
+        startGame();
+    }
+
     function startGame() {
-        currentQuestions = shuffleArray([...allQuestions]).slice(0, 10);
+        currentQuestions = shuffleArray([...questionsByLevel[currentLevel]]);
         currentIndex = 0;
         score = 0;
         streak = 0;
+        timeLeft = 300; // Reset naar 5 minuten
         
         showScreen('game-screen');
+        startTimer();
         updateStats();
         loadQuestion();
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        updateTimerDisplay();
+        
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showEndScreen(true); // Tijd op!
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        const timerElem = document.getElementById('timer');
+        timerElem.innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        
+        if (timeLeft <= 30) {
+            timerElem.classList.add('timer-warning');
+        } else {
+            timerElem.classList.remove('timer-warning');
+        }
     }
 
     function showScreen(id) {
@@ -638,11 +630,9 @@
         const q = currentQuestions[currentIndex];
         document.getElementById('verb-display').innerText = `Werkwoord: ${q.verb}`;
         
-        // Format prompt sentence
         const parts = q.sentence.split('{...}');
         document.getElementById('sentence-prompt').innerHTML = `${parts[0]}<span id="blank" class="blank-space">...</span>${parts[1] || ''}`;
 
-        // Options
         const optionsGrid = document.getElementById('options-grid');
         optionsGrid.innerHTML = '';
         
@@ -655,7 +645,6 @@
             optionsGrid.appendChild(btn);
         });
 
-        // Reset visual highlight of kofschip letters
         document.querySelectorAll('.letter-box').forEach(box => box.classList.remove('active'));
     }
 
@@ -670,7 +659,7 @@
 
         if (isCorrect) {
             playSound('correct');
-            score += 10 + (streak * 2);
+            score += 10 + (streak * 2) + (currentLevel * 5); // Meer punten bij hogere niveaus
             streak++;
             blank.style.color = 'var(--success)';
             blank.style.borderColor = 'var(--success)';
@@ -702,14 +691,14 @@
 
         let html = `
             <li>1️⃣ Hele werkwoord: <b>${q.verb}</b></li>
-            <li>2️⃣ Werkwoord minus -en (stam/ruwe stam): <b>${q.stemRaw}-</b></li>
+            <li>2️⃣ Werkwoord minus -en: <b>${q.stemRaw}-</b></li>
             <li>3️⃣ Laatste letter van de stam: <b style="font-size:1.1rem; text-transform:uppercase; color:var(--primary-dark);">${q.checkLetter}</b></li>
         `;
 
         if (q.inKofschip) {
-            html += `<li>4️⃣ Zit <b>'${q.checkLetter}'</b> in 't kofschip? <b>JA!</b> $\\rightarrow$ dus uitgang met een <b>T</b> (-te / -t).</li>`;
+            html += `<li>4️⃣ Zit <b>'${q.checkLetter}'</b> in 't kofschip? <b>JA!</b> $\\rightarrow$ uitgang met een <b>T</b> (-te / -t).</li>`;
         } else {
-            html += `<li>4️⃣ Zit <b>'${q.checkLetter}'</b> in 't kofschip? <b>NEE!</b> $\\rightarrow$ dus uitgang met een <b>D</b> (-de / -d).</li>`;
+            html += `<li>4️⃣ Zit <b>'${q.checkLetter}'</b> in 't kofschip? <b>NEE!</b> $\\rightarrow$ uitgang met een <b>D</b> (-de / -d).</li>`;
         }
 
         if (q.note) {
@@ -718,7 +707,6 @@
 
         stepList.innerHTML = html;
 
-        // Highlight matching letter in visual kofschip bar if present
         if (q.inKofschip) {
             const letterBox = document.querySelector(`.letter-box[data-char="${q.checkLetter.toLowerCase()}"]`);
             if (letterBox) letterBox.classList.add('active');
@@ -733,25 +721,52 @@
             updateStats();
             loadQuestion();
         } else {
-            showEndScreen();
+            clearInterval(timerInterval);
+            showEndScreen(false); // Vragen voltooid
         }
     }
 
-    function showEndScreen() {
+    function showEndScreen(timeUp = false) {
         document.getElementById('progress-bar').style.width = '100%';
         showScreen('end-screen');
 
+        const endTitle = document.getElementById('end-title');
+        const endReason = document.getElementById('end-reason');
         const finalScoreElem = document.getElementById('final-score');
         const feedbackMessage = document.getElementById('feedback-message');
+        const nextLevelBtn = document.getElementById('next-level-btn');
 
         finalScoreElem.innerText = `${score} pt`;
 
-        if (score >= 120) {
-            feedbackMessage.innerText = "🏆 Fantastisch! Jij bent een echte 't Kofschip Kapitein!";
-        } else if (score >= 70) {
-            feedbackMessage.innerText = "👍 Goed gedaan! Je kent de regels al erg goed.";
+        if (timeUp) {
+            endTitle.innerText = "⏰ Tijd is op!";
+            endReason.innerText = "De 5 minuten ronde zit erop.";
         } else {
-            feedbackMessage.innerText = "💪 Blijf oefenen! Bekijk de uitleg nog eens goed en probeer het opnieuw.";
+            endTitle.innerText = "Gefeliciteerd! 🎉";
+            endReason.innerText = `Je hebt Niveau ${currentLevel} afgerond binnen de tijd!`;
+        }
+
+        if (score >= 100) {
+            feedbackMessage.innerText = "🏆 Geweldig resultaat! Je bent een echte Kofschip Expert!";
+        } else if (score >= 50) {
+            feedbackMessage.innerText = "👍 Goed gedaan! Je kent de regels al behoorlijk goed.";
+        } else {
+            feedbackMessage.innerText = "💪 Blijf oefenen! Bekijk de uitleg nog eens goed.";
+        }
+
+        // Toon/verberg knop voor volgend niveau
+        if (currentLevel < 3) {
+            nextLevelBtn.style.display = 'inline-block';
+            nextLevelBtn.innerText = `Naar Niveau ${currentLevel + 1} 🚀`;
+        } else {
+            nextLevelBtn.style.display = 'none';
+        }
+    }
+
+    function goToNextLevel() {
+        if (currentLevel < 3) {
+            currentLevel++;
+            startGame();
         }
     }
 </script>
